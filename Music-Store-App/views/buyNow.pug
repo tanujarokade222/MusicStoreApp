@@ -1,0 +1,82 @@
+include verticalMenu.pug
+html
+  head
+    style.
+      .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin: auto;
+      text-align: center;
+      font-family: arial;
+      }
+      
+      .price {
+      color: grey;
+      font-size: 22px;
+      }
+      
+      .card button {
+      border: none;
+      outline: 0;
+      padding: 12px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+      }
+
+      .btnBuynow{
+        background-color: red;
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+      }
+
+      .btnaddcart{
+        background-color: #000;
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+      }
+      
+      .card button:hover {
+      opacity: 0.7;
+      }
+  body(onload="setUserId();popup('"+message+"');")
+    form(action="/buyNow/buySong" method="Post")
+      h2(style='text-align:center') Payment here
+      h2(style='text-align:center') Payment here
+      .card      
+        img(src='/images/'+song._id+'.jpg' alt='songimage' style='width:100%;height:100px;' )
+        h1 #{song.name}
+        p.price $#{song.price}
+        p #{song.description}
+        input(type="hidden" name="songId" id="songId" value=song._id)
+        input(type="hidden" id="priceId"  name="priceId" value=song.price)
+        input(type="hidden" id="hduserId"  name="hduserId")
+        p
+          //- input(class="btnaddcart" type="button" value="Add to Cart" onclick="getUserurl('"+song._id+"')")  
+      include payment.pug  
+      script.
+        function setUserId() {
+         return document.getElementById("hduserId").value = document.getElementById("userId").value;
+        }
+    script.
+      function popup(message) {        
+        if(message.length > 0) 
+        {
+          alert(message);
+        }                
+      }    
